@@ -1,0 +1,15 @@
+shell "/usr/bin/zsh"
+
+# Colors
+term screen-256color
+
+# Status bar
+hardstatus off
+hardstatus alwayslastline
+hardstatus string '%{= kG}[ %{G}%H %{g}][%= %{= kw}%?%-Lw%?%{r}(%{W}%n*%f%t%?(%u)%?%{r})%{w}%?%+Lw%?%?%= %{g}][%{B} %m-%d %{W} %c %{g}]'
+
+# Scroll
+termcapinfo xterm* ti@:te@
+
+# No flash
+vbell off
