@@ -628,7 +628,8 @@ def main():
     for index in range(start_range, end_range):
         success = runner.run_step(index + 1, steps[index], len(steps))
         if not success:
-            return 1
+            return 2
+    return 0
 
 if __name__ == "__main__":
     sys.exit(main())
