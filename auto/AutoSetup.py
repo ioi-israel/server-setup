@@ -430,7 +430,8 @@ class Installer():
         """
         postgres_commands = [
             "createuser --username=postgres --pwprompt cmsuser",
-            "createdb --username=postgres --owner=cmsuser cmsdb",
+            "createdb --username=postgres --owner=cmsuser cmsdb "
+            "--encoding='UTF8' --locale='en_US.UTF-8' --template=template0",
             "psql --username=postgres --dbname=cmsdb "
             "--command='ALTER SCHEMA public OWNER TO cmsuser'",
             "psql --username=postgres --dbname=cmsdb "

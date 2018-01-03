@@ -66,11 +66,11 @@ The documentation is for Ubuntu 16.04.3 Server 64 bit ([release page](http://rel
     $ sudo python2 setup.py install
     ```
     **Note:** in the output of the last command, a Python syntax error will be shown for the file `compile-fail.py`. This is normal.
-* Create the database, make note of the chosen database username and password:
+* Create the database, make note of the chosen database username and password. Note there might be issues if the database is not unicode (this is taken care of in the `createdb` line, modify it as needed).
     ```
     $ sudo su - postgres
     $ createuser --username=postgres --pwprompt cmsuser
-    $ createdb --username=postgres --owner=cmsuser cmsdb
+    $ createdb --username=postgres --owner=cmsuser cmsdb --encoding='UTF8' --locale='en_US.UTF-8' --template=template0
     $ psql --username=postgres --dbname=cmsdb --command='ALTER SCHEMA public OWNER TO cmsuser'
     $ psql --username=postgres --dbname=cmsdb --command='GRANT SELECT ON pg_largeobject TO cmsuser'
     ```
