@@ -247,6 +247,33 @@ class Installer():
     """
     An object for installation and configuration of components.
     """
+
+    def install_custom_ubuntu_deps(self):
+        """
+        Install custom dependencies.
+        """
+        packages = [
+            "nano",
+            "git",
+            "zip",
+            "unzip",
+            "valgrind",
+            "pari-gp",          # Calculator
+            "wget",
+            "curl",
+            "screen",
+            "tmux",
+            "mono-mcs",         # Mono C# compiler
+            "python2.7",
+            "ipython",          # Better python shell.
+            "ipython3",
+            "pyflakes",         # Python validator.
+            "pyflakes3",
+            "pep8",
+        ]
+        run(["sudo", "apt-get", "install"] + packages)
+        return True
+
     def install_ohmyzsh(self):
         """
         Install zsh and oh-my-zsh.
@@ -552,6 +579,8 @@ custom_config_files = {
 
 # Installation steps. Each has a description and a corresponding function.
 steps = [
+    {"text": "Installing custom Ubuntu packages",
+     "function": installer.install_custom_ubuntu_deps},
     {"text": "Installing zsh, and oh-my-zsh from Github",
      "function": installer.install_ohmyzsh},
     {"text": "Downloading custom config files",

@@ -43,6 +43,7 @@ The documentation is for Ubuntu 16.04.3 Server 64 bit ([release page](http://rel
     ```
     $ sudo apt-get install build-essential openjdk-8-jre openjdk-8-jdk fpc postgresql postgresql-client gettext python2.7 iso-codes shared-mime-info stl-manual cgroup-lite libcap-dev python-dev libpq-dev libcups2-dev libyaml-dev libffi-dev python-pip
     ```
+    For C# support, install `mono-mcs` as well.
 * If relevant, install `nginx`:
     ```
     $ sudo apt-get install nginx-full
