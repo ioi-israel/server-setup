@@ -608,8 +608,8 @@ def main():
     if args.start is not None:
         start_range = int(args.start) - 1
         if start_range < 0 or start_range >= len(steps):
-            fail("[Step %d doesn't exist, exiting]" % (start_range + 1,))
-            return 1
+            parser.error("[Step %d doesn't exist, exiting]" %
+                         (start_range + 1))
         info("[Starting from step %d]" % (start_range + 1,))
     else:
         info("[Starting from the beginning]")
@@ -628,7 +628,7 @@ def main():
     for index in range(start_range, end_range):
         success = runner.run_step(index + 1, steps[index], len(steps))
         if not success:
-            return 2
+            return 1
     return 0
 
 if __name__ == "__main__":
