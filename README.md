@@ -127,8 +127,11 @@ The documentation is for Ubuntu 16.04.3 Server 64 bit ([release page](http://rel
     During the installation, give gitolite the **public** key (e.g. `id_rsa.pub`) to be used for administration.
 * The `gitolite3` home directory is `/var/lib/gitolite3`, in which the `repositories` directory will contain the data. The tasks input/output data is sometimes large (even when compressed). If there is an external disk intended for large files, replace `repositories` with a symlink.
 
-## Todo
+## General todo
 * Complete documentation on working with CMS + gitolite.
 * Collect auxiliary scripts into the `server-utils` repository, refer to it here and include it in the automatic script.
 * Complete documentation on interacting between the public and private servers.
 * Complete the `task-utils` repository to make life easy for task developers.
+
+## Automation todo
+* Replace home directory inside `.zshrc` with real home directory.
