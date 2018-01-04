@@ -344,7 +344,18 @@ class Installer():
             'libyaml-dev',
             'libffi-dev',
             'python-pip',
-            'nginx-full'
+            'nginx-full',
+            'fp-compiler',
+            'fp-units-base',
+            'fp-units-fcl',
+            'fp-units-misc',
+            'fp-units-math',
+            'fp-units-rtl',
+            'gcj-jdk',
+            'haskell-platform',
+            'rustc',
+            'php7.0-cli',
+            'php7.0-fpm',
         ]
         run(["sudo", "apt-get", "install"] + packages)
         return True
@@ -412,6 +423,8 @@ class Installer():
         self.change_to_cms_dir()
         requirements_path = os.path.join(cms_dir, "requirements.txt")
         run(["sudo", "pip2", "install", "-r", requirements_path])
+        dev_requirements_path = os.path.join(cms_dir, "dev-requirements.txt")
+        run(["sudo", "pip2", "install", "-r", dev_requirements_path])
         return True
 
     def run_cms_setup(self):
@@ -435,6 +448,14 @@ class Installer():
             "psql --username=postgres --dbname=cmsdb "
             "--command='ALTER SCHEMA public OWNER TO cmsuser'",
             "psql --username=postgres --dbname=cmsdb "
+            "--command='GRANT SELECT ON pg_largeobject TO cmsuser'",
+
+            # Testing DB
+            "createdb --username=postgres --owner=cmsuser cmsdbfortesting "
+            "--encoding='UTF8' --locale='en_US.UTF-8' --template=template0",
+            "psql --username=postgres --dbname=cmsdbfortesting "
+            "--command='ALTER SCHEMA public OWNER TO cmsuser'",
+            "psql --username=postgres --dbname=cmsdbfortesting "
             "--command='GRANT SELECT ON pg_largeobject TO cmsuser'"
         ]
         commands_str = "&&".join(postgres_commands)
@@ -504,6 +525,32 @@ class Installer():
         # Run the prerequisites again, in order to install the
         # new CMS configuration files.
         return self.run_cms_prerequisites()
+
+    def swap_off(self):
+        run(["sudo", "swapoff", "-a"])
+        return True
+
+    def cms_test(self):
+        self.define_cms_dir()
+        self.change_to_cms_dir()
+
+        choice = prompt("Warning: init the CMS database?",
+                        ["yes", "no"])
+        if choice == "yes":
+            run(["cmsInitDB"])
+        else:
+            return False
+
+        run(["cmsRunTests"])
+
+        choice = prompt("Warning: DROP the CMS database?",
+                        ["yes", "no"])
+        if choice == "yes":
+            run(["cmsDropDB"])
+        else:
+            return False
+
+        return True
 
     def cms_init_db(self):
         """
@@ -600,6 +647,10 @@ steps = [
      "function": installer.setup_cms_db},
     {"text": "Customizing CMS and server config",
      "function": installer.customize_cms_config},
+    {"text": "Turning off swap",
+     "function": installer.swap_off},
+    {"text": "Running CMS tests (may take a while)",
+     "function": installer.cms_test},
     {"text": "Initializing CMS database",
      "function": installer.cms_init_db},
     {"text": "Adding CMS admin.",

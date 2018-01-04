@@ -43,7 +43,10 @@ The documentation is for Ubuntu 16.04.3 Server 64 bit ([release page](http://rel
     ```
     $ sudo apt-get install build-essential openjdk-8-jre openjdk-8-jdk fpc postgresql postgresql-client gettext python2.7 iso-codes shared-mime-info stl-manual cgroup-lite libcap-dev python-dev libpq-dev libcups2-dev libyaml-dev libffi-dev python-pip
     ```
-    For C# support, install `mono-mcs` as well.
+    For C# support, install `mono-mcs` as well. For complete CMS testing, install all other languages:
+    ```
+    $ sudo apt-get install fp-compiler fp-units-base fp-units-fcl fp-units-misc fp-units-math fp-units-rtl gcj-jdk haskell-platform rustc php7.0-cli php7.0-fpm
+    ```
 * If relevant, install `nginx`:
     ```
     $ sudo apt-get install nginx-full
@@ -60,9 +63,10 @@ The documentation is for Ubuntu 16.04.3 Server 64 bit ([release page](http://rel
     $ sudo ./prerequisites.py install
     ```
     The script will ask whether to add `ioi` to the `cmsuser` group. Answer `Y` to confirm. Log out and back in for the changes to take effect.
-* Install CMS Python dependencies:
+* Install CMS Python dependencies. Include the developer requirements for CMS testing.
     ```
     $ sudo pip2 install -r requirements.txt
+    $ sudo pip2 install -r dev-requirements.txt
     $ sudo python2 setup.py install
     ```
     **Note:** in the output of the last command, a Python syntax error will be shown for the file `compile-fail.py`. This is normal.
@@ -73,6 +77,12 @@ The documentation is for Ubuntu 16.04.3 Server 64 bit ([release page](http://rel
     $ createdb --username=postgres --owner=cmsuser cmsdb --encoding='UTF8' --locale='en_US.UTF-8' --template=template0
     $ psql --username=postgres --dbname=cmsdb --command='ALTER SCHEMA public OWNER TO cmsuser'
     $ psql --username=postgres --dbname=cmsdb --command='GRANT SELECT ON pg_largeobject TO cmsuser'
+    ```
+    For CMS testing, create a database `cmsdbfortesting`:
+    ```
+    $ createdb --username=postgres --owner=cmsuser cmsdbfortesting --encoding='UTF8' --locale='en_US.UTF-8' --template=template0
+    $ psql --username=postgres --dbname=cmsdbfortesting --command='ALTER SCHEMA public OWNER TO cmsuser'
+    $ psql --username=postgres --dbname=cmsdbfortesting --command='GRANT SELECT ON pg_largeobject TO cmsuser'"
     ```
 * Configure CMS:
     * Use the sample configuration files in this repository under `cms`. Put `cms.conf` and `cms.ranking.conf` in `~/Github/ioi-israel/cms/config`, and `nginx.conf` in `/etc/nginx`. The changes from the original CMS files are described here.
@@ -107,6 +117,20 @@ The documentation is for Ubuntu 16.04.3 Server 64 bit ([release page](http://rel
     ```
     $ cmsInitDB
     ```
+* Turn off swap. This is necessary because the `isolate` sandbox does not include swap when enforcing the memory limit.
+    ```
+    $ sudo swapoff -a
+    ```
+* Test CMS:
+    ```
+    $ cd ~/Github/ioi-israel/cms
+    $ cmsRunTests
+    ```
+    * This may take a while.
+    * If some tests fail, inspect the logs and consider running `cmsRunTests -r` to retry only the failed ones.
+    * If swap is enabled, some out of memory ("oom") tests may fail.
+    * The number of workers defined under `cmstestsuite` should match the actual number of workers defined in `cms.conf`. In our custom branch the number of workers is 1.
+    * When testing several times, the database may become polluted (which is undesirable, and by itself can cause some tests to fail). Consider dropping the database and initializing it after every testing session.
 * Add an AWS administrator:
     ```
     $ cmsAddAdmin <username>
