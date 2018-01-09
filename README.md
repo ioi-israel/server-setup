@@ -153,9 +153,11 @@ The documentation is for Ubuntu 16.04.3 Server 64 bit ([release page](http://rel
 
 ## General todo
 * Complete documentation on working with CMS + gitolite.
-* Collect auxiliary scripts into the `server-utils` repository, refer to it here and include it in the automatic script.
+* Collect auxiliary scripts into the `server_utils` repository, refer to it here and include it in the automatic script.
 * Complete documentation on interacting between the public and private servers.
-* Complete the `task-utils` repository to make life easy for task developers.
+* Complete the `task_utils` repository to make life easy for task developers.
+* Add `PYTHONPATH` as a requirement.
 
 ## Automation todo
 * Replace home directory inside `.zshrc` with real home directory.
+* Add `ioi-israel` directory to `PYTHONPATH` in `.zshrc`.
