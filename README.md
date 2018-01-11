@@ -151,6 +151,27 @@ The documentation is for Ubuntu 16.04.3 Server 64 bit ([release page](http://rel
     During the installation, give gitolite the **public** key (e.g. `id_rsa.pub`) to be used for administration.
 * The `gitolite3` home directory is `/var/lib/gitolite3`, in which the `repositories` directory will contain the data. The tasks input/output data is sometimes large (even when compressed). If there is an external disk intended for large files, replace `repositories` with a symlink.
 
+
+# Usage and maintenance
+
+## Periodic maintenance checklist
+* Free up space:
+    * Check the free space with `df -h`.
+    * Check the contents of `/tmp` for sandboxes or other temporary files that may be deletable. Consider removing all directories of the form `/tmp/tmp*` when the server is not in use.
+    * Check the contents of `/var/local/cache/cms` and `/var/local/log/cms`. Consider clearing them when the server is not in use.
+* Upgrade the operating system. Upgrade `ioi-testing` before `ioi-training`, to handle any breakages more easily.
+
+## Pre-season checklist
+* Make sure the previous season is fully backed up, then clean the database.
+* Create a new users file, and update `server_utils/config/config.yaml` accordingly.
+
+## Post-season checklist
+* Make sure the season is fully backed up, then clean the database.
+* If a newer stable version of CMS is out, test it and consider upgrading.
+
+
+# Todo
+
 ## General todo
 * Complete documentation on working with CMS + gitolite.
 * Collect auxiliary scripts into the `server_utils` repository, refer to it here and include it in the automatic script.
