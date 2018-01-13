@@ -178,7 +178,13 @@ The documentation is for Ubuntu 16.04.3 Server 64 bit ([release page](http://rel
 * Complete documentation on interacting between the public and private servers.
 * Complete the `task_utils` repository to make life easy for task developers.
 * Add `PYTHONPATH` as a requirement.
+* Add script to generate users and passwords from a text file.
+* Add more checklists, including troubleshooting tips.
+* Documentation of `config.yaml` in `server_utils`.
+* Automatic attachments for output only tasks.
 
 ## Automation todo
 * Replace home directory inside `.zshrc` with real home directory.
 * Add `ioi-israel` directory to `PYTHONPATH` in `.zshrc`.
+* Clone `task_utils` and `server_utils` into `ioi-israel`.
+* Create `config.yaml` from the sample in `server_utils`.
