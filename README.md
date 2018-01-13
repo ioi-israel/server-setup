@@ -182,6 +182,11 @@ The documentation is for Ubuntu 16.04.3 Server 64 bit ([release page](http://rel
 * Add more checklists, including troubleshooting tips.
 * Documentation of `config.yaml` in `server_utils`.
 * Automatic attachments for output only tasks.
+* Force TwoSteps tasks to have:
+    * `manager.cpp`
+    * `manager.h`
+    * `encoder.h`
+    * `decoder.h`
 
 ## Automation todo
 * Replace home directory inside `.zshrc` with real home directory.
