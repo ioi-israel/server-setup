@@ -270,6 +270,7 @@ class Installer():
             "pyflakes",         # Python validator.
             "pyflakes3",
             "pep8",
+            "python-flufl.lock",
         ]
         run(["sudo", "apt-get", "install"] + packages)
         return True
