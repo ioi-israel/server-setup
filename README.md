@@ -187,6 +187,9 @@ The documentation is for Ubuntu 16.04.3 Server 64 bit ([release page](http://rel
     * `manager.h`
     * `encoder.h`
     * `decoder.h`
+* In OutputOnly tasks, automatically zip the input files and include it as an attachment. Consider running the files through `unix2dos`, for contestants who use Windows.
+* Documentation about requests. Note the `GitoliteRequest.py` script needs to know the path to the requests directory separately, because it is run by a different user.
+* Documentation about NFS locks.
 
 ## Automation todo
 * Replace home directory inside `.zshrc` with real home directory.
