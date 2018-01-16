@@ -188,11 +188,14 @@ The documentation is for Ubuntu 16.04.3 Server 64 bit ([release page](http://rel
     * `encoder.h`
     * `decoder.h`
 * In OutputOnly tasks, automatically zip the input files and include it as an attachment. Consider running the files through `unix2dos`, for contestants who use Windows.
-* Documentation about requests. Note the `GitoliteRequest.py` script needs to know the path to the requests directory separately, because it is run by a different user.
-* Documentation about NFS locks.
+* Documentation about requests. Note the `GitoliteRequest.py` script needs to know the path to the requests directory separately, because it is run by a different user. Add the main user to the `gitolite3` group.
+* Documentation about NFS locks and safety, both in the requests directory and in the repositories directory.
+* Documentation about adding an SSH key, and starting ssh-agent, for internally cloning repositories.
 
 ## Automation todo
 * Replace home directory inside `.zshrc` with real home directory.
 * Add `ioi-israel` directory to `PYTHONPATH` in `.zshrc`.
 * Clone `task_utils` and `server_utils` into `ioi-israel`.
 * Create `config.yaml` from the sample in `server_utils`.
+* Start `ssh-agent` and use `ssh-keygen` in `ioi-testing`, for cloning the repositories locally.
+* Add the main user to the `gitolite3` group.
