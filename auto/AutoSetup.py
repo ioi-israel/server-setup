@@ -6,9 +6,9 @@ Mostly automated installation for a new CMS + gitolite server.
 
 import getpass
 import os
-import requests
 import subprocess
 import sys
+import requests
 
 
 class Printer():
@@ -195,7 +195,7 @@ class Runner():
         warn("[*** Done executing: %s *** ]" % command_string)
         return return_code
 
-    def run_with_io(self, commands, input=None, fail_abort=True):
+    def run_with_io(self, commands, input_str=None, fail_abort=True):
         """
         Run the described commands list, with the given input. If fail_abort
         is True, and the return code is not zero, raise an exception.
@@ -205,7 +205,7 @@ class Runner():
         """
         command_string = " ".join(commands)
         process = subprocess.Popen(commands, stdout=subprocess.PIPE)
-        stdout, stderr = process.communicate(input=input)
+        stdout, _ = process.communicate(input=input_str)
         return_code = process.returncode
 
         if return_code != 0 and fail_abort:
@@ -239,7 +239,7 @@ class Runner():
         """
         key_command = "import cmscommon.crypto;" + \
                       "print cmscommon.crypto.get_hex_random_key()"
-        key_output, return_code = run_with_io(["python2", "-c", key_command])
+        key_output, _ = run_with_io(["python2", "-c", key_command])
         return key_output.strip()
 
 
@@ -408,7 +408,7 @@ class Installer():
         script_path = os.path.join(cms_dir, "prerequisites.py")
         run(["sudo", script_path, "install"])
 
-        groups_text, return_code = run_with_io(["groups"])
+        groups_text, _ = run_with_io(["groups"])
         groups = groups_text.split()
         if "cmsuser" not in groups:
             info("[Prerequisites done, now log out and back in "
@@ -465,7 +465,7 @@ class Installer():
 
     def customize_cms_config(self):
         """
-        Download various CMS configuration tepmlates from this repository,
+        Download various CMS configuration templates from this repository,
         modify them as needed and install them to the appropriate paths.
         """
         self.define_cms_dir()
@@ -528,10 +528,16 @@ class Installer():
         return self.run_cms_prerequisites()
 
     def swap_off(self):
+        """
+        Turn off swap in the system.
+        """
         run(["sudo", "swapoff", "-a"])
         return True
 
     def cms_test(self):
+        """
+        Initialize the database, run the CMS test suite, then drop it.
+        """
         self.define_cms_dir()
         self.change_to_cms_dir()
 
@@ -669,8 +675,7 @@ def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("-s", "--start",
                         help="step to start with (between 1 and %d)." %
-                             (len(steps),),
-                        type=int)
+                        len(steps), type=int)
     parser.add_argument("-o", "--one",
                         help="execute just one step.",
                         action="store_true")
