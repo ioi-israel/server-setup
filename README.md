@@ -191,6 +191,7 @@ The documentation is for Ubuntu 16.04.3 Server 64 bit ([release page](http://rel
 * Documentation about requests. Note the `GitoliteRequest.py` script needs to know the path to the requests directory separately, because it is run by a different user. Add the main user to the `gitolite3` group.
 * Documentation about NFS locks and safety, both in the requests directory and in the repositories directory.
 * Documentation about adding an SSH key, and starting ssh-agent, for internally cloning repositories.
+* Documentation about `gitolite/gitolite.conf`.
 
 ## Automation todo
 * Replace home directory inside `.zshrc` with real home directory.
