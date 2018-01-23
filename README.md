@@ -196,6 +196,7 @@ The documentation is for Ubuntu 16.04.3 Server 64 bit ([release page](http://rel
 ## Automation todo
 * Replace home directory inside `.zshrc` with real home directory.
 * Add `ioi-israel` directory to `PYTHONPATH` in `.zshrc`.
+* Add a `SafeImport` alias in `.zshrc` for importing a contest on the training server.
 * Clone `task_utils` and `server_utils` into `ioi-israel`.
 * Create `config.yaml` from the sample in `server_utils`.
 * Start `ssh-agent` and use `ssh-keygen` in `ioi-testing`, for cloning the repositories locally.
