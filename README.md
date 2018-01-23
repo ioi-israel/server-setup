@@ -87,6 +87,7 @@ The documentation is for Ubuntu 16.04.3 Server 64 bit ([release page](http://rel
 * Configure CMS:
     * Use the sample configuration files in this repository under `cms`. Put `cms.conf` and `cms.ranking.conf` in `~/Github/ioi-israel/cms/config`, and `nginx.conf` in `/etc/nginx`. The changes from the original CMS files are described here.
     * Change `nginx.conf` according to the desired settings.
+        * Have one worker process per CPU core.
         * If HTTPS is handled externally, comment out the lines that begin with `ssl` and `auth_basic`, and change port 443 to 80.
         * When running CMS (later), if AWS isn't accessible from within the server, try adding `allow <explicit ip>` below `allow 127.0.0.1`. Reload the nginx settings after any such modification.
             
