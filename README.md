@@ -89,13 +89,12 @@ The documentation is for Ubuntu 16.04.3 Server 64 bit ([release page](http://rel
     * Change `nginx.conf` according to the desired settings.
         * Have one worker process per CPU core.
         * If HTTPS is handled externally, comment out the lines that begin with `ssl` and `auth_basic`, and change port 443 to 80.
-        * When running CMS (later), if AWS isn't accessible from within the server, try adding `allow <explicit ip>` below `allow 127.0.0.1`. Reload the nginx settings after any such modification.
-            
-            **Important:** AWS should only be available by accessing the server directly. To administrate remotely, use a tunnel, for example:
+        * **Important:** AWS should only be available by accessing the server directly. To administrate remotely, use a tunnel, for example:
             ```
             $ ssh myuser@myserver -L 5000:127.0.0.1:8889 -N
             ```
-            where 5000 is the local port, and 8889 is the AWS port on the server.
+            where 5000 is the local port, and 8889 is the AWS port on the server. Comment out everything about `/aws` and `/rws` in `nginx.conf` if not needed. In any case, make sure the administration is not accessible publicly.
+        * Reload the nginx settings after any such modification.
     * In `cms.ranking.conf`, change the login information.
     * In `cms.conf`:
         * Change the `rankings` string to match the login from `cms.ranking.conf`.
