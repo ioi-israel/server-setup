@@ -192,6 +192,8 @@ The documentation is for Ubuntu 16.04.3 Server 64 bit ([release page](http://rel
 * Documentation about NFS locks and safety, both in the requests directory and in the repositories directory.
 * Documentation about adding an SSH key, and starting ssh-agent, for internally cloning repositories.
 * Documentation about `gitolite/gitolite.conf`.
+* Documentation about maintenance mode, including `public/images/stop-sign.svg`.
+* Lock down read permissions for `/var/lib/gitolite3`.
 
 ## Automation todo
 * Replace home directory inside `.zshrc` with real home directory.
