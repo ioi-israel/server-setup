@@ -201,3 +201,4 @@ The documentation is for Ubuntu 16.04.3 Server 64 bit ([release page](http://rel
 * Create `config.yaml` from the sample in `server_utils`.
 * Start `ssh-agent` and use `ssh-keygen` in `ioi-testing`, for cloning the repositories locally.
 * Add the main user to the `gitolite3` group.
+* Clone `contestants_docs` into `~/public/docs`.
