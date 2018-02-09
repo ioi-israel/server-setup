@@ -97,7 +97,7 @@ The documentation is for Ubuntu 16.04.3 Server 64 bit ([release page](http://rel
         * Reload the nginx settings after any such modification.
     * In `cms.ranking.conf`, change the login information.
     * In `cms.conf`:
-        * Change the `rankings` string to match the login from `cms.ranking.conf`.
+        * Change the `rankings` string to match the login from `cms.ranking.conf`. If RWS will not be used, `rankings` should be an empty list (otherwise CMS will try to send the score to a non-existing server, resulting in connection errors).
         * Change the database login information to match the ones chosen earlier.
         * Change the amount of workers if needed. If there is only one server, the number of workers should probably be 1.
         *  Change `max_submission_length` to a more suitable value, like 10000000 (approximately 10MB; such files are needed for output-only tasks).
