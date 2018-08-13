@@ -196,6 +196,7 @@ The documentation is for Ubuntu 16.04.3 Server 64 bit ([release page](http://rel
 * Lock down read permissions for `/var/lib/gitolite3`.
 * Documentation about passive analysis mode (year >= 3000).
 * Documentation about ranking, including task names that start with a dot (home training), and crontab.
+* `networkx` dependency.
 
 ## Automation todo
 * Replace home directory inside `.zshrc` with real home directory.
