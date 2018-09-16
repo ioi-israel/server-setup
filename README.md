@@ -51,11 +51,15 @@ The documentation is for Ubuntu 16.04.3 Server 64 bit ([release page](http://rel
     ```
     $ sudo apt-get install nginx-full
     ```
-* Clone the CMS repository (we will use `~/Github` as a container directory):
+* Clone the CMS repository (we will use `~/Github` as a container directory), and go to the currently used branch of `cms` and of `isolate`:
     ```
     $ mkdir -p ~/Github/ioi-israel
     $ cd ~/Github/ioi-israel
     $ git clone --recursive https://github.com/ioi-israel/cms.git
+    $ cd cms
+    $ git checkout v1.3-israel
+    $ cd isolate
+    $ git checkout c8b0eef
     ```
 * Run CMS prerequisites:
     ```
