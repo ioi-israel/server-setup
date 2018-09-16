@@ -82,7 +82,7 @@ The documentation is for Ubuntu 16.04.3 Server 64 bit ([release page](http://rel
     ```
     $ createdb --username=postgres --owner=cmsuser cmsdbfortesting --encoding='UTF8' --locale='en_US.UTF-8' --template=template0
     $ psql --username=postgres --dbname=cmsdbfortesting --command='ALTER SCHEMA public OWNER TO cmsuser'
-    $ psql --username=postgres --dbname=cmsdbfortesting --command='GRANT SELECT ON pg_largeobject TO cmsuser'"
+    $ psql --username=postgres --dbname=cmsdbfortesting --command='GRANT SELECT ON pg_largeobject TO cmsuser'
     ```
 * Configure CMS:
     * Use the configuration files in this (`server_setup`) repository under the `cms` directory. Put `cms.conf` and `cms.ranking.conf` in `~/Github/ioi-israel/cms/config`, and `nginx.conf` in `/etc/nginx`. These files are different from the original CMS files (i.e. the `*.conf.sample` files in `cms/config`). The changes are described here:
