@@ -104,32 +104,30 @@ Note that some of the installation is the same for both servers. It may be conve
     Don't forget to go back to the normal user after executing these database commands as `postgres`.
 * Configure CMS:
     * Use the configuration files in this (`server_setup`) repository under the `cms` directory. Put `cms.conf` and `cms.ranking.conf` in `~/Github/ioi-israel/cms/config`, and `nginx.conf` in `/etc/nginx`. These files are different from the original CMS files (i.e. the `*.conf.sample` files in `cms/config`). The changes are described here:
-        * Change `nginx.conf` according to the desired settings.
-            * Have one worker process per CPU core.
-            * If HTTPS is handled externally, comment out the lines that begin with `ssl` and `auth_basic`, and change port 443 to 80.
+        * In `nginx.conf`:
+            * We have one worker process per CPU core.
+            * HTTPS is handled separately, so we commented out the lines that begin with `ssl` and `auth_basic`, and changed port 443 to 80.
             * **Important:** AWS should only be available by accessing the server directly. To administrate remotely, use a tunnel, for example:
                 ```
                 $ ssh myuser@myserver -L 5000:127.0.0.1:8889 -N
                 ```
-                where 5000 is the local port, and 8889 is the AWS port on the server. Comment out everything about `/aws` and `/rws` in `nginx.conf` if not needed. In any case, make sure the administration is not accessible publicly.
-
-            Reload the nginx settings after any such modification:
-            ```
-            $ sudo nginx -s reload
-            ```
-        * In `cms.ranking.conf`, change the login information.
+                where 5000 is the local port, and 8889 is the AWS port on the server. Thus everything about `/aws` and `/rws` in `nginx.conf` is commented out. In any case, make sure the administration is not accessible publicly.
         * In `cms.conf`:
-            * Change the `rankings` string to match the login from `cms.ranking.conf`. If RWS will not be used, `rankings` should be an empty list (otherwise CMS will try to send the score to a non-existing server, resulting in connection errors).
-            * Change the amount of workers if needed. If there is only one server, the number of workers should probably be 1.
-            *  Change `max_submission_length` to a more suitable value, like 10000000 (approximately 10MB; such files are needed for output-only tasks).
-            * Put `127.0.0.1` in `admin_listen_address`.
-            * Add two custom fields, `custom_instructors_path` and `custom_contestants_path`. Each is an absolute path to a directory that will be available for instructors and contestants, respectively.
+            * We changed the amount of workers to 1. This is normal for a single server with 2 cores.
+            *  We changed `max_submission_length` to a more suitable value of 10000000 (approximately 10MB; such files are needed for output-only tasks).
+            * We put `127.0.0.1` in `admin_listen_address`.
+    * Reload the nginx settings after any modification to its configuration:
+        ```
+        $ sudo nginx -s reload
+        ```
     * Generate a random hex key:
         ```
         $ python -c 'import cmscommon.crypto; print cmscommon.crypto.get_hex_random_key()'
         ```
         Put the key in the `secret_key` field of `cms.conf`.
     * Change the database login information in `cms.conf` to match the ones chosen earlier.
+    * In `cms.ranking.conf`, change the login information, then change the `rankings` string in `cms.conf` to match that login. If RWS will not be used, `rankings` should be an empty list (otherwise CMS will try to send the score to a non-existing server, resulting in connection errors).
+    * Edit the two custom fields at the end of `cms.conf`, called `custom_instructors_path` and `custom_contestants_path`. Each is an absolute path to a directory that will be available for instructors and contestants, respectively. Normally these are `/home/ioi/for-instructors` and `/home/ioi/for-contestants`, respectively.
     * Run the prerequisites again:
         ```
         $ cd ~/Github/ioi-israel/cms
