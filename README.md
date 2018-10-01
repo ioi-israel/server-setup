@@ -209,6 +209,22 @@ Remember to distinguish the machines, because we need to run them simultaneously
     ```
     During the installation, give gitolite the **public** key (e.g. `id_rsa.pub`) to be used for administration.
 * The `gitolite3` home directory is `/var/lib/gitolite3`, in which the `repositories` directory will contain the data. The tasks input/output data is sometimes large (even when compressed). If there is an external disk intended for large files, replace `repositories` with a symlink.
+* Clone the `gitolite-admin` repository to your computer (change the IP address to the testing server).
+    ```
+    $ git clone ssh://gitolite3@192.168.56.210/gitolite-admin
+    ```
+    
+    This is where you control the configuration of gitolite users and permissions. Pushing this repository activates any changes you make. Read through before pushing.
+    * Copy `gitolite/gitolite.conf` from this repository to `gitolite-admin/conf/gitolite.conf`. This file gives admins (you) full permissions, while task developers can only create repositories of the form `tasks/dev-name/task_name`.
+    * The server needs to be able to access repositories locally. Therefore we add it as a gitolite admin. Create an SSH key on the testing server, as the normal user (the defaults should work):
+        ```
+        $ ssh-keygen
+        ```
+        Add the new public key to `gitolite-admin` in the file `keys/ioi-testing.pub`, and push.
+    * For testing purposes on a local virtual machine, we don't need to add task developers (admin is enough). On an actual server, a new developer's public SSH key should be added to `gitolite-admin/keys` as a file `dev-name.pub`; and their name should be added in `gitolite.conf` where indicated.
+
+Now we will set up the communication between gitolite and CMS.
+
 * Add the regular user to the `gitolite3` group:
     ```
     $ sudo usermod -a -G gitolite3 ioi
@@ -232,6 +248,11 @@ Remember to distinguish the machines, because we need to run them simultaneously
     $ cp /home/ioi/Github/ioi-israel/server_utils/auto/GitoliteRequest.py post-receive
     $ chmod ug+x post-receive
     ```
+* Run the request handler:
+    ```
+    $ python ~/Github/ioi-israel/server_utils/auto/RequestHandler.py
+    ```
+    It should say that it is watching the requests directory for changes. When a request arrives signifying that a task repository has been updated, the request handler will process the task (generate testcases etc.) and update the contest in CMS. Leave the script running forever, except when you specifically need to prevent this from happening.
 
 
 # Usage and maintenance
