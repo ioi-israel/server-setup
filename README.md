@@ -133,6 +133,7 @@ Note that some of the installation is the same for both servers. It may be conve
         $ cd ~/Github/ioi-israel/cms
         $ sudo ./prerequisites.py install
         ```
+        Confirm overwriting the configuration files for the changes to take effect.
 * Initialize the database:
     ```
     $ cmsInitDB
