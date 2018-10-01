@@ -152,6 +152,11 @@ Note that some of the installation is the same for both servers. It may be conve
     * If swap is enabled, some out of memory ("oom") tests may fail.
     * The number of workers defined under `cmstestsuite` should match the actual number of workers defined in `cms.conf`. In our custom branch the number of workers is 1.
     * When testing several times, the database may become polluted (which is undesirable, and by itself can cause some tests to fail). Consider dropping the database and initializing it after every testing session.
+* If there is nothing important in the database, clean it up:
+     ```
+    $ cmsDropDB
+    $ cmsInitDB
+    ```
 * Add an AWS administrator:
     ```
     $ cmsAddAdmin <username>
