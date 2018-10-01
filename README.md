@@ -43,6 +43,10 @@ Note that some of the installation is the same for both servers. It may be conve
         See `custom/zsh/.zshrc` in this repository for a suggested configuration. Note that the plugin [`zsh-syntax-highlighting`](https://github.com/zsh-users/zsh-syntax-highlighting) has to be installed for shell colors, and the Ubuntu `source-highlight` package has to be installed for `less` colors.
     * Use `tmux` or `screen` for managing terminal sessions. See `custom/screen/.screenrc` in this repository for a suggested configuration.
     * See `custom/nano/.nanorc` in this repository for a suggested nano configuration.
+* The following packages are needed for our custom repositories.
+    ```
+    $ sudo apt-get install python-networkx python-pyinotify python-flufl.lock
+    ```
 
     This customization and most of the following steps can be automated with `auto/AutoSetup.py` in this repository. However, when experimenting with these instructions for the very first time, it is instructive to go through them manually.
 
@@ -59,10 +63,6 @@ Note that some of the installation is the same for both servers. It may be conve
 * If relevant, install `nginx`:
     ```
     $ sudo apt-get install nginx-full
-    ```
-* Install convenience packages for task development:
-    ```
-    $ sudo apt-get install python-networkx
     ```
 * Clone the CMS repository (we will use `~/Github` as a container directory), and go to the currently used branch of `cms` and of `isolate`:
     ```
