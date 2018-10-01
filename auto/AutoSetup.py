@@ -286,6 +286,7 @@ class Installer():
             "pyflakes3",
             "pep8",
             "python-flufl.lock",
+            "python-networkx",
         ]
         run(["sudo", "apt-get", "install"] + packages)
         return True

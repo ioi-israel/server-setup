@@ -60,6 +60,10 @@ Note that some of the installation is the same for both servers. It may be conve
     ```
     $ sudo apt-get install nginx-full
     ```
+* Install convenience packages for task development:
+    ```
+    $ sudo apt-get install python-networkx
+    ```
 * Clone the CMS repository (we will use `~/Github` as a container directory), and go to the currently used branch of `cms` and of `isolate`:
     ```
     $ mkdir -p ~/Github/ioi-israel
@@ -214,7 +218,6 @@ Note that some of the installation is the same for both servers. It may be conve
 * Lock down read permissions for `/var/lib/gitolite3`.
 * Documentation about passive analysis mode (year >= 3000).
 * Documentation about ranking, including task names that start with a dot (home training), and crontab.
-* `networkx` dependency.
 
 ## Automation todo
 * Replace home directory inside `.zshrc` with real home directory.
