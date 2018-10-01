@@ -8,6 +8,13 @@ The documentation is for Ubuntu 16.04.3 Server 64 bit ([release page](http://rel
 * One public server will be available for contestants. It will always have a running instance of CMS for training, containing only finalized tasks.
 * One private server will be available for task developers. It will always have a running instance of CMS for testing, containing tasks in progress. It will host a gitolite system for developers (one repository per task).
 
+## Experimenting in local virtual machines
+When getting acquainted with the system for the first time, try everything in virtual machines first, and install things manually rather than using the automation script.
+
+You will need two virtual machines: one for the public server ("training") and one for the private development server ("testing"). It is recommended to name them appropriately, e.g. `local-ioi-testing` and `local-ioi-training`, to distinguish them from the actual servers. You should be able to access them with SSH easily (consider setting up static IPs), and they should have a shared directory (you can simply define a shared directory with the host for each of them, and choose the same path).
+
+Note that some of the installation is the same for both servers. It may be convenient to start with one virtual machine, and duplicate it when they need to diverge.
+
 ## Install Ubuntu
 * Install a fresh copy of [Ubuntu 16.04.3 Server 64 bit](http://releases.ubuntu.com/16.04/). The default settings should work, except:
     * Choose a hostname (typically `ioi-training` for the public training server and `ioi-testing` for the private testing server).
