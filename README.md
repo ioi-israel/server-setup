@@ -126,7 +126,7 @@ Note that some of the installation is the same for both servers. It may be conve
         ```
         Put the key in the `secret_key` field of `cms.conf`.
     * Change the database login information in `cms.conf` to match the ones chosen earlier.
-    * In `cms.ranking.conf`, change the login information, then change the `rankings` string in `cms.conf` to match that login. If RWS will not be used, `rankings` should be an empty list (otherwise CMS will try to send the score to a non-existing server, resulting in connection errors).
+    * In `cms.ranking.conf`, change the login information, then change the `rankings` string in `cms.conf` to match that login. If RWS will not be used, `rankings` should be an empty list (otherwise CMS will try to send the score to a non-existing server, resulting in connection errors). However, do not leave it empty for testing, the proxy service relies on it.
     * Edit the two custom fields at the end of `cms.conf`, called `custom_instructors_path` and `custom_contestants_path`. Each is an absolute path to a directory that will be available for instructors and contestants, respectively. Normally these are `/home/ioi/for-instructors` and `/home/ioi/for-contestants`, respectively.
     * Run the prerequisites again:
         ```
