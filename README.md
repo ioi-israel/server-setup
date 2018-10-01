@@ -168,6 +168,33 @@ Note that some of the installation is the same for both servers. It may be conve
 * Shut down `cmsAdminWebServer` and run `cmsResourceService -a 1`, where 1 is the contest ID. Now all services are up (including AWS). Login as a contestant in a local browser. Submit a program and make sure everything works correctly (correct output, incorrect output, failed compilation, and so on).
 * While testing, always check the `cmsLogService` output for errors, as well as the AWS overview page. There will be internal errors if, for example, the task is missing some parameters, or the scorer program crashed, or some Python package is missing, etc.
 
+## Clone and configure custom repositories
+Clone our custom repositories:
+```
+$ cd ~/Github/ioi-israel
+$ git clone https://github.com/ioi-israel/server_utils.git
+$ git clone https://github.com/ioi-israel/task_utils.git
+$ git clone https://github.com/ioi-israel/task_algorithms.git
+$ git clone https://github.com/ioi-israel/contestants_docs.git
+```
+Set up a shared directory for the two servers. This may be a network disk, or (if using VirtualBox with guest additions) a shared directory with the host. Suppose it is is mounted on `/data`.
+In `server_utils/config`, make a copy of `config.sample.yaml` called `config.yaml` in the same directory. Make the following changes:
+* `general/name` should be a short name for this server, distinguishing it from the other server. Use `training` or `testing` on the appropriate machines.
+* `paths/clone_dir`: this should be a path to a directory inside `/data`, where repositories will be cloned for server use. Typically this may be `/data/Clone` (create this directory).
+* `paths/requests_dir`: this is a path for git automation (see later). The default should work.
+* `paths/locks_file`: this is a path for a lock file, used to prevent collisions in the clone directory. In our example, this should be `/data/Clone/.lock`.
+* `locks/lifetime`: number of seconds a directory is allowed to be locked. The default should work.
+* `locks/timeout`: number of seconds before a script gives up on trying to obtain the lock. The default should work.
+* `requests/cooling_period`: number of seconds the server waits between acting on requests. The default should work.
+* `requests/active_contests`: a list of contest paths which are considered active. An active contest is one whose tasks are processed whenever a relevant repository is updated (see later). Assuming you will create a contest called `testing`, the default should work.
+
+## Split the machines
+If installing on a local virtual machines, this is the point where training and testing diverge. The training one will contain just CMS, and the testing one will additionally contain gitolite and the surrounding scripts.
+Remember to distinguish the machines, because we need to run them simultaneously:
+* Change the hostname.
+* Change the static IP.
+* Change `general/name` in `server_utils/config/config.yaml`.
+
 ## Install gitolite
 * Gitolite works with SSH keys. Create one locally if needed, and make sure the **private** key file (e.g. `id_rsa`) is secure.
 * Install the `gitolite3` package:
