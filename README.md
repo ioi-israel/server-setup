@@ -221,6 +221,8 @@ Remember to distinguish the machines, because we need to run them simultaneously
         $ ssh-keygen
         ```
         Add the new public key to `gitolite-admin` in the file `keys/ioi-testing.pub`, and push.
+        
+        The SSH identity should be added to the shell. The `ssh-agent` plugin can help with `zsh` (see suggested file `.zshrc`).
     * For testing purposes on a local virtual machine, we don't need to add task developers (admin is enough). On an actual server, a new developer's public SSH key should be added to `gitolite-admin/keys` as a file `dev-name.pub`; and their name should be added in `gitolite.conf` where indicated.
 
 Now we will set up the communication between gitolite and CMS.
