@@ -197,12 +197,35 @@ Remember to distinguish the machines, because we need to run them simultaneously
 
 ## Install gitolite
 * Gitolite works with SSH keys. Create one locally if needed, and make sure the **private** key file (e.g. `id_rsa`) is secure.
-* Install the `gitolite3` package:
+* Install the `gitolite3` package on the testing server:
     ```
     $ sudo apt-get install gitolite3
     ```
     During the installation, give gitolite the **public** key (e.g. `id_rsa.pub`) to be used for administration.
 * The `gitolite3` home directory is `/var/lib/gitolite3`, in which the `repositories` directory will contain the data. The tasks input/output data is sometimes large (even when compressed). If there is an external disk intended for large files, replace `repositories` with a symlink.
+* Add the regular user to the `gitolite3` group:
+    ```
+    $ sudo usermod -a -G gitolite3 ioi
+    ```
+    Log out and back in for the changes to take effect.
+* Create the directory `requests` in the `gitolite3` directory. It should be owned by `gitolite3`, and have read and write permissions for the `gitolite3` group.
+    ```
+    $ sudo su - gitolite3
+    $ mkdir requests
+    ```
+* Configure gitolite to enable custom hooks. Edit `/var/lib/gitolite3/.gitolite.rc`, within the `%RC` block, and uncomment the following line:
+    ```
+    LOCAL_CODE => "$ENV{HOME}/local",
+    ```
+    See further details [here](http://gitolite.com/gitolite/cookbook/).
+* Put our custom `GitoliteRequest.py` hook in. With the hook, each time a gitolite repository is updated by a task developer, a corresponding request file is created in the `requests` directory.
+    ```
+    $ sudo su - gitolite3
+    $ mkdir -p local/hooks/common
+    $ cd local/hooks/common
+    $ cp /home/ioi/Github/ioi-israel/server_utils/auto/GitoliteRequest.py post-receive
+    $ chmod ug+x post-receive
+    ```
 
 
 # Usage and maintenance
