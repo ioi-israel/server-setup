@@ -20,7 +20,9 @@ Note that some of the installation is the same for both servers. It may be conve
     * Choose a hostname (typically `ioi-training` for the public training server and `ioi-testing` for the private testing server).
     * Choose a username such as `ioi`.
     * Mark OpenSSH server for installation.
-* If using a local virtual machine, set up the network such that the host can administrate the guest with SSH (for example, map some host port to guest port 22).
+* If using a local virtual machine, set up the network such that the host can administrate the guests with SSH:
+    * Map some host port to guest port 22, if needed.
+    * Make the IP static: you can find relevant instructions [here](http://coding4streetcred.com/blog/post/VirtualBox-Configuring-Static-IPs-for-VMs) and [here](https://askubuntu.com/questions/264768/how-to-configure-static-ip-in-ubuntu-running-on-virtual-box). Choose between bridge or host adapter according to your preference and local setup. The important thing is to be able to access the machines via SSH reliably and easily.
 * Bring the system up to date:
     ```
     $ sudo apt update && sudo apt full-upgrade
