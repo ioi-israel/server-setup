@@ -142,7 +142,7 @@ Note that some of the installation is the same for both servers. It may be conve
     ```
     $ sudo swapoff -a
     ```
-* Test CMS:
+* Run the automatic tests:
     ```
     $ cd ~/Github/ioi-israel/cms
     $ cmsRunTests
@@ -157,7 +157,7 @@ Note that some of the installation is the same for both servers. It may be conve
     $ cmsAddAdmin <username>
     ```
 
-## Test CMS
+## Test CMS manually
 * Run `cmsLogService` and `cmsAdminWebServer` (use `screen` or `tmux` to keep control of the terminal). Login from a local browser.
 * Use the website to create a user, a contest, and a task with some testcases. Add the user and task to the contest.
 * Shut down `cmsAdminWebServer` and run `cmsResourceService -a 1`, where 1 is the contest ID. Now all services are up (including AWS). Login as a contestant in a local browser. Submit a program and make sure everything works correctly (correct output, incorrect output, failed compilation, and so on).
