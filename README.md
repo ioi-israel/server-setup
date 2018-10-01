@@ -177,6 +177,12 @@ $ git clone https://github.com/ioi-israel/task_utils.git
 $ git clone https://github.com/ioi-israel/task_algorithms.git
 $ git clone https://github.com/ioi-israel/contestants_docs.git
 ```
+These scripts should be accessible from the shell, (e.g. `import server_utils` should work). The simplest way to do this is to add `ioi-israel` to the python path in `.zshrc`:
+```
+export PYTHONPATH=/home/ioi/Github/ioi-israel:$PYTHONPATH
+```
+Note this already exists in the suggested file `custom/zsh/.zshrc`.
+
 Set up a shared directory for the two servers. This may be a network disk, or (if using VirtualBox with guest additions) a shared directory with the host. Suppose it is is mounted on `/data`.
 In `server_utils/config`, make a copy of `config.sample.yaml` called `config.yaml` in the same directory. Make the following changes:
 * `general/name` should be a short name for this server, distinguishing it from the other server. Use `training` or `testing` on the appropriate machines.
@@ -275,7 +281,6 @@ Remember to distinguish the machines, because we need to run them simultaneously
 
 ## Automation todo
 * Replace home directory inside `.zshrc` with real home directory.
-* Add `ioi-israel` directory to `PYTHONPATH` in `.zshrc`.
 * Add a `SafeImport` alias in `.zshrc` for importing a contest on the training server.
 * Clone `task_utils` and `server_utils` into `ioi-israel`.
 * Create `config.yaml` from the sample in `server_utils`.

@@ -94,3 +94,5 @@ export TIMEFMT='%J   %U  user %S system %P cpu %*E total'$'\n'\
 'max memory:                %M MB'$'\n'\
 
 ZSH_HIGHLIGHT_HIGHLIGHTERS=(main brackets pattern cursor)
+
+export PYTHONPATH=/home/ioi/Github/ioi-israel:$PYTHONPATH
