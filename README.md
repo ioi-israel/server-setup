@@ -256,6 +256,41 @@ Now we will set up the communication between gitolite and CMS.
     ```
     It should say that it is watching the requests directory for changes. When a request arrives signifying that a task repository has been updated, the request handler will process the task (generate testcases etc.) and update the contest in CMS. Leave the script running forever, except when you specifically need to prevent this from happening.
 
+## Testing gitolite
+* Note on file permissions: part of task processing involves creating a directory writable by anyone (`0777`) in the task's directory, inside the clone directory. When using VirtualBox shared directories, it might not allow using `chmod`. This can be worked around tentatively (not to be used on production machines) by mounting the directory with full permissions. For example:
+    ```
+    $ sudo mount -t vboxsf -o uid=1000,gid=100,dmode=777,fmode=777 data /data
+    ```
+* Make sure the request handler is running, see above.
+* Clone a testing contest repository from gitolite.
+    ```
+    $ git clone ssh://gitolite3@192.168.56.210/contests/testing
+    ```
+    Put a `module.yaml` file in it, in a format similar to `server_utils/templates/contest_module.yaml`. The users file should be a YAML file inside `users`, e.g. `users/testing-users.yaml`. Edit the tasks list to include just one task, called `task1`, with path `tasks/joe/task1`.
+    
+    When you push, the request handler might ask (just once per installation) to confirm the authenticity of its own fingerprint. This is because it uses git with SSH to clone the repository to the clone directory.
+
+    Then, the request handler will complain that the specified users file doesn't exist yet. This is normal.
+* Clone the `users` repository from gitolite. Put a new YAML file in it, in a format similar to `server_utils/templates/users_file.yaml`. Give it the same name that the contest is expecting.
+
+    These will be the users who can access CMS as contestants and make submissions. Add some dummy users, and also an unrestricted user called "`autotester`". It will be used for automated submissions.
+
+    When you push, the request handler will complain that `task1` does not contain a module yet. This is normal.
+* Create `task1`:
+    ```
+    $ git clone ssh://gitolite3@192.168.56.210/tasks/joe/task1
+    ```
+    Put a valid task `module.py` in it, and include any necessary additional files. See `task_utils/templates/documented_template.py`.
+
+    When you push, the task will be processed, because it belongs to a contest which was defined as active in `config.yaml`. All the test data will be generated into `task1/auto.gen` in the clone directory. If there are no errors, CMS will be updated, and automated submissions (if any) will be inserted. Run `cmsResourceService`, log in as a contestant, and test.
+
+    Future pushes to the active contest, to any of its tasks, or to the users repository will trigger another update. Note that this can be done while `cmsResourceService` is running.
+
+Now we have a working environment for development and testing. Task developers can create their own repositories independently. Once they want to test on CMS, they let the admin know, and the admin adds the new task to `contests/testing/module.yaml`. Test that this process works.
+
+## From testing to training
+[Todo]
+
 
 # Usage and maintenance
 
