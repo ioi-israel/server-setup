@@ -282,10 +282,8 @@ Now we will set up the communication between gitolite and CMS.
 * Collect auxiliary scripts into the `server_utils` repository, refer to it here and include it in the automatic script.
 * Complete documentation on interacting between the public and private servers.
 * Complete the `task_utils` repository to make life easy for task developers.
-* Add `PYTHONPATH` as a requirement.
 * Add script to generate users and passwords from a text file.
 * Add more checklists, including troubleshooting tips.
-* Documentation of `config.yaml` in `server_utils`.
 * Automatic attachments for output only tasks.
 * Force TwoSteps tasks to have:
     * `manager.cpp`
@@ -295,8 +293,6 @@ Now we will set up the communication between gitolite and CMS.
 * In OutputOnly tasks, automatically zip the input files and include it as an attachment. Consider running the files through `unix2dos`, for contestants who use Windows.
 * Documentation about requests. Note the `GitoliteRequest.py` script needs to know the path to the requests directory separately, because it is run by a different user. Add the main user to the `gitolite3` group.
 * Documentation about NFS locks and safety, both in the requests directory and in the repositories directory.
-* Documentation about adding an SSH key, and starting ssh-agent, for internally cloning repositories.
-* Documentation about `gitolite/gitolite.conf`.
 * Documentation about maintenance mode, including `public/images/stop-sign.svg`.
 * Lock down read permissions for `/var/lib/gitolite3`.
 * Documentation about passive analysis mode (year >= 3000).
