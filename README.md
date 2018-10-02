@@ -350,11 +350,8 @@ Run `cmsResourceService -a` on `ioi-training` (it will list contests to choose f
 # Todo
 
 ## General todo
-* Complete documentation on working with CMS + gitolite.
 * Collect auxiliary scripts into the `server_utils` repository, refer to it here and include it in the automatic script.
-* Complete documentation on interacting between the public and private servers.
 * Complete the `task_utils` repository to make life easy for task developers.
-* Add script to generate users and passwords from a text file.
 * Add more checklists, including troubleshooting tips.
 * Automatic attachments for output only tasks.
 * Force TwoSteps tasks to have:
@@ -372,7 +369,6 @@ Run `cmsResourceService -a` on `ioi-training` (it will list contests to choose f
 
 ## Automation todo
 * Replace home directory inside `.zshrc` with real home directory.
-* Add a `SafeImport` alias in `.zshrc` for importing a contest on the training server.
 * Clone `task_utils` and `server_utils` into `ioi-israel`.
 * Create `config.yaml` from the sample in `server_utils`.
 * Start `ssh-agent` and use `ssh-keygen` in `ioi-testing`, for cloning the repositories locally.
