@@ -207,7 +207,7 @@ Remember to distinguish the machines, because we need to run them simultaneously
     ```
     $ sudo apt-get install gitolite3
     ```
-    During the installation, give gitolite the **public** key (e.g. `id_rsa.pub`) to be used for administration.
+    During the installation, give gitolite the **public** key (e.g. `id_rsa.pub`) that you will use from your computer.
 * The `gitolite3` home directory is `/var/lib/gitolite3`, in which the `repositories` directory will contain the data. The tasks input/output data is sometimes large (even when compressed). If there is an external disk intended for large files, replace `repositories` with a symlink.
 * Clone the `gitolite-admin` repository to your computer (change the IP address to the testing server).
     ```
