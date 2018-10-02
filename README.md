@@ -169,7 +169,7 @@ Note that some of the installation is the same for both servers. It may be conve
 * While testing, always check the `cmsLogService` output for errors, as well as the AWS overview page. There will be internal errors if, for example, the task is missing some parameters, or the scorer program crashed, or some Python package is missing, etc.
 
 ## Clone and configure custom repositories
-Clone our custom repositories:
+Clone our custom repositories on the server:
 ```
 $ cd ~/Github/ioi-israel
 $ git clone https://github.com/ioi-israel/server_utils.git
@@ -264,7 +264,7 @@ Now we will set up the communication between gitolite and CMS.
         ```
     * The locking mechanism uses `python-flufl.lock`, which internally relies on creating hard links. This may not work in VirtualBox shared directories. One possible workaround (tentative, not to be used on production machines) is to change the lock path in `config.yaml` to something local. This of course disables the locking, because one server will not see the other's lock. You will have to be careful not to create collisions (a collision may happen when simultaneously `ioi-testing` is processing an updated repository and `ioi-training` is fetching contest/task/user data).
 * Make sure the request handler is running, see above.
-* Clone a testing contest repository from gitolite.
+* Clone a testing contest repository from gitolite to your computer.
     ```
     $ git clone ssh://gitolite3@192.168.56.210/contests/testing
     ```
@@ -278,7 +278,7 @@ Now we will set up the communication between gitolite and CMS.
     These will be the users who can access CMS as contestants and make submissions. Add some dummy users, and also an unrestricted user called "`autotester`". It will be used for automated submissions.
 
     When you push, the request handler will complain that `task1` does not contain a module yet. This is normal.
-* Create `task1`:
+* Create `task1` on your computer:
     ```
     $ git clone ssh://gitolite3@192.168.56.210/tasks/joe/task1
     ```
