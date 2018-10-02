@@ -257,10 +257,12 @@ Now we will set up the communication between gitolite and CMS.
     It should say that it is watching the requests directory for changes. When a request arrives signifying that a task repository has been updated, the request handler will process the task (generate testcases etc.) and update the contest in CMS. Leave the script running forever, except when you specifically need to prevent this from happening.
 
 ## Testing gitolite
-* Note on file permissions: part of task processing involves creating a directory writable by anyone (`0777`) in the task's directory, inside the clone directory. When using VirtualBox shared directories, it might not allow using `chmod`. This can be worked around tentatively (not to be used on production machines) by mounting the directory with full permissions. For example:
-    ```
-    $ sudo mount -t vboxsf -o uid=1000,gid=100,dmode=777,fmode=777 data /data
-    ```
+* Notes on permissions and VirtualBox:
+    * Part of task processing involves creating a directory writable by anyone (`0777`) in the task's directory, inside the clone directory. When using VirtualBox shared directories, it might not allow using `chmod`. This can be worked around tentatively (not to be used on production machines) by mounting the directory with full permissions. For example:
+        ```
+        $ sudo mount -t vboxsf -o uid=1000,gid=100,dmode=777,fmode=777 data /data
+        ```
+    * The locking mechanism uses `python-flufl.lock`, which internally relies on creating hard links. This may not work in VirtualBox shared directories. One possible workaround (tentative, not to be used on production machines) is to change the lock path in `config.yaml` to something local. This of course disables the locking, because one server will not see the other's lock. You will have to be careful not to create collisions (a collision may happen when simultaneously `ioi-testing` is processing an updated repository and `ioi-training` is fetching contest/task/user data).
 * Make sure the request handler is running, see above.
 * Clone a testing contest repository from gitolite.
     ```
