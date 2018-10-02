@@ -292,7 +292,41 @@ Now we will set up the communication between gitolite and CMS.
 Now we have a working environment for development and testing. Task developers can create their own repositories independently. Once they want to test on CMS, they let the admin know, and the admin adds the new task to `contests/testing/module.yaml`. Test that this process works.
 
 ## From testing to training
-[Todo]
+Suppose we have a few tasks (`task1`, `task2`, `task3`) which we want to use in a real training day. Once the task developers are done testing them, create a contest for the training day:
+* The contest repository name should be `contests/2018-01-01`, where the date reflects the planned training day in ISO format. It should contain a `module.yaml` file based on `contest_module.yaml`.
+* The short name of the contest is similarly `2018-01-01`.
+* The long name of the contest is similarly `Computer Science Olympiad Training: 2018-01-01`.
+* Modify the start and end times according to the planned day.
+* Choose the appropriate users file. Add this file to the `users` repository, with actual names and passwords of the contestants. Normally this file is created just once a year, and then it is used throughout the season.
+
+    There is a utility for creating users and passwords from a list of full names: `server_utils/users/GenerateUsers.py`.
+* List the tasks information. For example, a short name may be `task1` or `task_1`, and a long name may be `Task 1`. The path is relative to the clone directory, e.g. `tasks/joe/task1`.
+* Decide which programming languages should be available.
+* Decide on other limitations. The defaults in `contest_module.yaml` should work.
+
+When you push, the tasks will not be processed, because `2018-01-01` is not listed as active in `config.yaml`. The servers will assume these tasks have already been processed from `testing`. However, the contest repository `contests/2018-01-01` will be cloned to the clone directory even if it is not active (as opposed to tasks). This enables `ioi-training` to see them.
+
+Import the contest into `ioi-training`. We do this using the locking mechanism, to prevent collisions while reading:
+```
+$ python ~/Github/ioi-israel/server_utils/auto/SafeUpdater.py --add_users --contest contests/2018-01-01
+```
+`SafeUpdater` is in charge of updating repositories and CMS contests under the locking mechanism. Here we use it as basically a wrapper for the CMS script `cmsImportContest`.
+
+**Important:** normally you should always use `SafeUpdater` to avoid collisions. If there is an issue that forces you to use e.g. `cmsImportContest` (or anything else that depends on the clone directory), you should verify manually that no collisions are possible. In particular, you should shut down the request handler.
+
+In the suggested `.zshrc`, we have an alias `SafeImport` for the first part, which makes this simpler:
+```
+$ SafeImport contests/2018-01-01
+```
+
+To make automatic submissions to `ioi-training`, give `SafeImport` the flag `--auto_submit_all`. You should have a user `autotester` in the users file to do this.
+
+**Important:** updating a contest after it is inserted to `ioi-training` should be a rare event. But if necessary, the same `SafeImport` command updates an existing contest as well.
+
+Run `cmsResourceService -a` on `ioi-training` (it will list contests to choose from). Once the contest is up:
+* Check that AWS works.
+* Log in with a contestant's user and make sure everything looks as intended. In particular the contest time window.
+* Log in with `autotester` to view automatic submissions, if any. You may want to make `autotester` unrestricted, which will enable it to submit outside the contest time window.
 
 
 # Usage and maintenance

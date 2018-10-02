@@ -96,3 +96,5 @@ export TIMEFMT='%J   %U  user %S system %P cpu %*E total'$'\n'\
 ZSH_HIGHLIGHT_HIGHLIGHTERS=(main brackets pattern cursor)
 
 export PYTHONPATH=/home/ioi/Github/ioi-israel:$PYTHONPATH
+
+alias SafeImport='python ~/Github/ioi-israel/server_utils/auto/SafeUpdater.py --add_users --contest'
