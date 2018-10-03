@@ -360,6 +360,7 @@ Run `cmsResourceService -a` on `ioi-training` (it will list contests to choose f
     * `encoder.h`
     * `decoder.h`
 * In OutputOnly tasks, automatically zip the input files and include it as an attachment. Consider running the files through `unix2dos`, for contestants who use Windows.
+* In automatic submissions, warn/fail if two different items have the same path.
 * Documentation about requests. Note the `GitoliteRequest.py` script needs to know the path to the requests directory separately, because it is run by a different user. Add the main user to the `gitolite3` group.
 * Documentation about NFS locks and safety, both in the requests directory and in the repositories directory.
 * Documentation about maintenance mode, including `public/images/stop-sign.svg`.
