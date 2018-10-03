@@ -366,6 +366,7 @@ Run `cmsResourceService -a` on `ioi-training` (it will list contests to choose f
 * Lock down read permissions for `/var/lib/gitolite3`.
 * Documentation about passive analysis mode (year >= 3000).
 * Documentation about ranking, including task names that start with a dot (home training), and crontab.
+* Documentation about `MakeRequest`.
 
 ## Automation todo
 * Replace home directory inside `.zshrc` with real home directory.
