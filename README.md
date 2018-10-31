@@ -336,12 +336,3 @@ Run `cmsResourceService -a` on `ioi-training` (it will list contests to choose f
 * Documentation about requests. Note the `GitoliteRequest.py` script needs to know the path to the requests directory separately, because it is run by a different user. Add the main user to the `gitolite3` group.
 * Documentation about NFS locks and safety, both in the requests directory and in the repositories directory.
 * Documentation about `MakeRequest`.
-
-## Automation todo
-* Replace home directory inside `.zshrc` with real home directory.
-* Clone `task_utils` and `server_utils` into `ioi-israel`.
-* Create `config.yaml` from the sample in `server_utils`.
-* Start `ssh-agent` and use `ssh-keygen` in `ioi-testing`, for cloning the repositories locally.
-* Add the main user to the `gitolite3` group.
-* Clone `contestants_docs` into `~/public/docs`.
-* Clone `task_algorithms`.
