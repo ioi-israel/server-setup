@@ -257,6 +257,8 @@ Now we will set up the communication between gitolite and CMS.
     ```
     It should say that it is watching the requests directory for changes. When a request arrives signifying that a task repository has been updated, the request handler will process the task (generate testcases etc.) and update the contest in CMS. Leave the script running forever, except when you specifically need to prevent this from happening.
 
+    **Important:** to prevent collisions between `RequestHandler` and `GitoliteRequest`, a locking mechanism is in place in the requests directory (similar to the clone directory).
+
 ## Testing gitolite
 * Notes on permissions and VirtualBox:
     * Part of task processing involves creating a directory writable by anyone (`0777`) in the task's directory, inside the clone directory. When using VirtualBox shared directories, it might not allow using `chmod`. This can be worked around tentatively (not to be used on production machines) by mounting the directory with full permissions. For example:
@@ -333,5 +335,4 @@ Run `cmsResourceService -a` on `ioi-training` (it will list contests to choose f
 # Todo
 
 ## General todo
-* Documentation about NFS locks and safety, both in the requests directory and in the repositories directory.
 * Documentation about `MakeRequest`.
