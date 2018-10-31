@@ -329,45 +329,12 @@ Run `cmsResourceService -a` on `ioi-training` (it will list contests to choose f
 * Log in with `autotester` to view automatic submissions, if any. You may want to make `autotester` unrestricted, which will enable it to submit outside the contest time window.
 
 
-# Usage and maintenance
-
-## Periodic maintenance checklist
-* Free up space:
-    * Check the free space with `df -h`.
-    * Check the contents of `/tmp` for sandboxes or other temporary files that may be deletable. Consider removing all directories of the form `/tmp/tmp*` when the server is not in use.
-    * Check the contents of `/var/local/cache/cms` and `/var/local/log/cms`. Consider clearing them when the server is not in use.
-* Upgrade the operating system. Upgrade `ioi-testing` before `ioi-training`, to handle any breakages more easily.
-
-## Pre-season checklist
-* Make sure the previous season is fully backed up, then clean the database.
-* Create a new users file, and update `server_utils/config/config.yaml` accordingly.
-
-## Post-season checklist
-* Make sure the season is fully backed up, then clean the database.
-* If a newer stable version of CMS is out, test it and consider upgrading.
-
-
 # Todo
 
 ## General todo
 * Collect auxiliary scripts into the `server_utils` repository, refer to it here and include it in the automatic script.
-* Complete the `task_utils` repository to make life easy for task developers.
-* Add more checklists, including troubleshooting tips.
-* Automatic attachments for output only tasks.
-* Force TwoSteps tasks to have:
-    * `manager.cpp`
-    * `manager.h`
-    * `encoder.h`
-    * `decoder.h`
-* In OutputOnly tasks, automatically zip the input files and include it as an attachment. Consider running the files through `unix2dos`, for contestants who use Windows.
-* In tasks with graders, automatically compile the output generator with the grader and header (it's more convenient to supply the school solution in the required format, rather than a standalone).
-* In automatic submissions, warn/fail if two different items have the same path.
 * Documentation about requests. Note the `GitoliteRequest.py` script needs to know the path to the requests directory separately, because it is run by a different user. Add the main user to the `gitolite3` group.
 * Documentation about NFS locks and safety, both in the requests directory and in the repositories directory.
-* Documentation about maintenance mode, including `public/images/stop-sign.svg`.
-* Lock down read permissions for `/var/lib/gitolite3`.
-* Documentation about passive analysis mode (year >= 3000).
-* Documentation about ranking, including task names that start with a dot (home training), and crontab.
 * Documentation about `MakeRequest`.
 
 ## Automation todo
