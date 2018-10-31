@@ -290,6 +290,12 @@ Now we will set up the communication between gitolite and CMS.
     When you push, the task will be processed, because it belongs to a contest which was defined as active in `config.yaml`. All the test data will be generated into `task1/auto.gen` in the clone directory. If there are no errors, CMS will be updated, and automated submissions (if any) will be inserted. Run `cmsResourceService`, log in as a contestant, and test.
 
     Future pushes to the active contest, to any of its tasks, or to the users repository will trigger another update. Note that this can be done while `cmsResourceService` is running.
+* You can simulate an update to a gitolite repository by writing a YAML file directly into the requests directory. This may be helpful when testing the handler, reproducing problems with processing tasks, etc.
+
+    The suggested `.zshrc` contains a `MakeRequest` shortcut, which can be used as follows. Note it does not lock the directory, use with care.
+    ```
+    $ MakeRequest tasks/joe/task1
+    ```
 * Note about users: due to a technical limitation, removing and modifying users in the CMS database cannot be done via the automation process (only adding users is supported). If users need to be modified or removed (which is rare), perform these actions first through AWS, and then in the `users` repository too (for consistency).
 
 Now we have a working environment for development and testing. Task developers can create their own repositories independently. Once they want to test on CMS, they let the admin know, and the admin adds the new task to `contests/testing/module.yaml`. Test that this process works.
