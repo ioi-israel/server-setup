@@ -332,7 +332,6 @@ Run `cmsResourceService -a` on `ioi-training` (it will list contests to choose f
 # Todo
 
 ## General todo
-* Collect auxiliary scripts into the `server_utils` repository, refer to it here and include it in the automatic script.
 * Documentation about requests. Note the `GitoliteRequest.py` script needs to know the path to the requests directory separately, because it is run by a different user. Add the main user to the `gitolite3` group.
 * Documentation about NFS locks and safety, both in the requests directory and in the repositories directory.
 * Documentation about `MakeRequest`.
