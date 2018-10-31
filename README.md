@@ -250,6 +250,7 @@ Now we will set up the communication between gitolite and CMS.
     $ cp /home/ioi/Github/ioi-israel/server_utils/auto/GitoliteRequest.py post-receive
     $ chmod ug+x post-receive
     ```
+    **Important:** the hook is run by a different user and has no access to `config.yaml`. Therefore it needs to know where to put the requests. This is currently hard-coded in `GitoliteRequest.py`.
 * Run the request handler:
     ```
     $ python ~/Github/ioi-israel/server_utils/auto/RequestHandler.py
@@ -332,6 +333,5 @@ Run `cmsResourceService -a` on `ioi-training` (it will list contests to choose f
 # Todo
 
 ## General todo
-* Documentation about requests. Note the `GitoliteRequest.py` script needs to know the path to the requests directory separately, because it is run by a different user. Add the main user to the `gitolite3` group.
 * Documentation about NFS locks and safety, both in the requests directory and in the repositories directory.
 * Documentation about `MakeRequest`.
