@@ -336,3 +336,7 @@ Run `cmsResourceService -a` on `ioi-training` (it will list contests to choose f
 * Check that AWS works.
 * Log in with a contestant's user and make sure everything looks as intended. In particular the contest time window.
 * Log in with `autotester` to view automatic submissions, if any. You may want to make `autotester` unrestricted, which will enable it to submit outside the contest time window.
+* Submissions can be exported to files using `DatabaseUtils`. The suggested `.zshrc` file contains an `ExportSubmissions` shortcut, which creates a directory `contest_name` in the current directory, and logical subdirectories for each task, user and submission.
+    ```
+    $ ExportSubmissions 2018-01-01
+    ```

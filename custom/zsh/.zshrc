@@ -102,3 +102,7 @@ alias SafeImport='python ~/Github/ioi-israel/server_utils/auto/SafeUpdater.py --
 function MakeRequest() {
     echo "user: \"\"\nrepo: \"$1\"" > /var/lib/gitolite3/requests/`date +%s`.yaml
 }
+
+function ExportSubmissions() {
+    python -c "from server_utils.cms.scripts.DatabaseUtils import export_submissions; export_submissions('.',['$1'],True)"
+}
