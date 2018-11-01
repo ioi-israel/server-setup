@@ -196,6 +196,10 @@ In `server_utils/config`, make a copy of `config.sample.yaml` called `config.yam
 
 Copy the relevant contents of `contestant_docs` into `docs` in the public path (e.g. `~/for-contestants/docs`. Exclude git information). This is the location expected for our custom files in CMS documentation (available for contestants on the menu). See `documentation.html` in our CMS.
 
+We have a simplified custom scoreboard, separate from the official RWS. It's less fancy, but it allows us better control over which tasks/users/contests are displayed, and when it is updated.
+
+If a custom scoreboard is needed, copy the relevant contents of `server_utils/ranking` into a subdirectory of `~/for-instructors` or `~/for-contestants` (depending on whether the scoreboard should be public). Create a YAML configuration file based on the sample, and run it whenever the scoreboard should be updated (a cron job may be needed).
+
 ## Split the machines
 If installing on a local virtual machines, this is the point where training and testing diverge. The training one will contain just CMS, and the testing one will additionally contain gitolite and the surrounding scripts.
 Remember to distinguish the machines, because we need to run them simultaneously:
@@ -338,6 +342,7 @@ Run `cmsResourceService -a` on `ioi-training` (it will list contests to choose f
 * Check that AWS works.
 * Log in with a contestant's user and make sure everything looks as intended. In particular the contest time window.
 * Check that our custom example files from `contestant_docs` are available under "Documentation".
+* Check that the custom scoreboard works.
 * Log in with `autotester` to view automatic submissions, if any. You may want to make `autotester` unrestricted, which will enable it to submit outside the contest time window.
 * Submissions can be exported to files using `DatabaseUtils`. The suggested `.zshrc` file contains an `ExportSubmissions` shortcut, which creates a directory `contest_name` in the current directory, and logical subdirectories for each task, user and submission.
     ```
