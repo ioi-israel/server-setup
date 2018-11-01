@@ -194,6 +194,8 @@ In `server_utils/config`, make a copy of `config.sample.yaml` called `config.yam
 * `requests/cooling_period`: number of seconds the server waits between acting on requests. The default should work.
 * `requests/active_contests`: a list of contest paths which are considered active. An active contest is one whose tasks are processed whenever a relevant repository is updated (see later). Assuming you will create a contest called `testing`, the default should work.
 
+Copy the relevant contents of `contestant_docs` into `docs` in the public path (e.g. `~/for-contestants/docs`. Exclude git information). This is the location expected for our custom files in CMS documentation (available for contestants on the menu). See `documentation.html` in our CMS.
+
 ## Split the machines
 If installing on a local virtual machines, this is the point where training and testing diverge. The training one will contain just CMS, and the testing one will additionally contain gitolite and the surrounding scripts.
 Remember to distinguish the machines, because we need to run them simultaneously:
@@ -335,6 +337,7 @@ To make automatic submissions to `ioi-training`, give `SafeImport` the flag `--a
 Run `cmsResourceService -a` on `ioi-training` (it will list contests to choose from). Once the contest is up:
 * Check that AWS works.
 * Log in with a contestant's user and make sure everything looks as intended. In particular the contest time window.
+* Check that our custom example files from `contestant_docs` are available under "Documentation".
 * Log in with `autotester` to view automatic submissions, if any. You may want to make `autotester` unrestricted, which will enable it to submit outside the contest time window.
 * Submissions can be exported to files using `DatabaseUtils`. The suggested `.zshrc` file contains an `ExportSubmissions` shortcut, which creates a directory `contest_name` in the current directory, and logical subdirectories for each task, user and submission.
     ```
